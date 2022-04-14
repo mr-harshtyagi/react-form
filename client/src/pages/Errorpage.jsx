@@ -4,10 +4,10 @@ import Error from "../components/error";
 function Errorpage() {
   return (
     <div className="row">
-      <div className="col col-lg-2 f">
+      <div className="col col-3">
         <Sidebar />
       </div>
-      <div className="col col-lg-10">
+      <div className="col col-9">
         <Error />
       </div>
     </div>
