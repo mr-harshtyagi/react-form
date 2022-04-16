@@ -119,7 +119,6 @@ app.post("/postdatatoserver",function (req, res) {
        sign.end();
        const signature = sign.sign(privateKeyObject).toString("base64"); //encrpyt with private key to get Digital signature
        // push organisation credentials to database
-      const certificate
 
        const newOrganisation = new Organisation({
          id: randomId(10),
@@ -127,7 +126,6 @@ app.post("/postdatatoserver",function (req, res) {
          private_key: privateKey,
          details: receivedData,
          digital_signature: signature,
-         digital_certificate: certificate
        });
        newOrganisation.save();
      }
