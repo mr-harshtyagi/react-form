@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const {Buffer} =require("buffer")
 const mongoose = require("mongoose");
 const cors=require("cors");
-const forge = require("node-forge");
+
 const corsOptions ={
    origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
@@ -27,7 +27,6 @@ const organisationSchema = {
   private_key: String,
   details : Object,
   digital_signature: String,
-  digital_certificate:String
 };
 const Organisation = mongoose.model("Organisation", organisationSchema);
 
@@ -105,7 +104,7 @@ app.post("/postdatatoserver",function (req, res) {
     },
   });
 // Find a certain identrix key from database to sign organisation credentials
-   Key.findOne({ id: "jm51" }, function (err, foundKey) {
+   Key.findOne({ id: "wkdm" }, function (err, foundKey) {
      if (err) res.send(err);
      else {
        const idxPrivateKey = foundKey.private_key;
@@ -115,7 +114,8 @@ app.post("/postdatatoserver",function (req, res) {
 
        // Creating digital signature of Organisation by Identrix
        const sign = crypto.createSign("SHA256");
-       sign.update(receivedData); // hashing data object to obtain digest
+       const data =JSON.stringify(receivedData);
+       sign.update(data); // hashing data object to obtain digest
        sign.end();
        const signature = sign.sign(privateKeyObject).toString("base64"); //encrpyt with private key to get Digital signature
        // push organisation credentials to database
@@ -130,7 +130,7 @@ app.post("/postdatatoserver",function (req, res) {
        newOrganisation.save();
      }
    });
-  res.send("Organisation created and Digitallly Signed with Private key : jm51"); 
+  res.send("Organisation created and Digitallly Signed with Private key "); 
 });
 
 // sending keys back to organisation
@@ -153,7 +153,6 @@ app.get("/findcertificate/:uniqueId", function (req, res) {
 });
 
 // Verify digital signature of organisation
-app.get()
 
 
 // generate random userID

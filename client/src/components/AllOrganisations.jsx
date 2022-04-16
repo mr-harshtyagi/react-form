@@ -52,12 +52,12 @@ export default function AllOrganisations() {
                   <th scope="row">{index + 1}</th>
                   <td>{organisation.id}</td>
                   <td>
-                    {organisation.public_key.substring(0, 0)}
-                    <a href="/">Download</a>
+                    {organisation.public_key.substring(0,0)}
+                    <button className="btn btn-warning">Show</button>
                   </td>
                   <td>
-                    {organisation.private_key.substring(0, 100)}
-                    <a href="/" download={organisation.id+"private_key"}>Download</a>
+                    {organisation.private_key.substring(0,0)}
+                   <button className="btn btn-warning">Show</button>
                   </td>
                   <td>{organisation.details.fullName}</td>
                   <td>{organisation.details.organisation}</td>
@@ -69,7 +69,7 @@ export default function AllOrganisations() {
                   <td>{organisation.details.expiration}</td>
                   <td>
                     {organisation.digital_signature.substring(0, 0)}
-                    <a href="/">Download</a>
+                    <button className="btn btn-warning">Show</button>
                   </td>
                 </tr>
               ) : (
