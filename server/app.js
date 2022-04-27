@@ -106,7 +106,7 @@ app.post("/postdatatoserver",function (req, res) {
     },
   });
 // Find a certain identrix key from database to sign organisation credentials
-   Key.findOne({ id: "wkdm" }, function (err, foundKey) {
+   Key.findOne({ id: "jm51" }, function (err, foundKey) {
      if (err) res.send(err);
      else {
        const idxPrivateKey = foundKey.private_key;
@@ -168,7 +168,7 @@ app.post("/verifysignature", function (req, res) {
     }
   });
   // Find IDX public key to verify signature
- Key.findOne({ id: "wkdm" }, function (err, foundKey) {
+ Key.findOne({ id: "jm51" }, function (err, foundKey) {
      if (err) res.send(err);
      else {
        const idxPublicKey = foundKey.public_key;
