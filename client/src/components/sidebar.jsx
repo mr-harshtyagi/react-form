@@ -17,7 +17,7 @@ export default function Sidebar(){
         >
           <i className="bi bi-fingerprint display-4 me-3 "></i>
           <span className="display-5">
-            <strong>Identrix</strong>
+            <strong><span style={{color:"#4285F4"}}>ID</span>entri<span style={{color:"#4285F4"}}>X</span></strong>
           </span>
         </a>
         <hr />
@@ -32,6 +32,7 @@ export default function Sidebar(){
                   registeration: "nav-link link-dark",
                   mykeys: "nav-link link-dark",
                   digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link link-dark"
                 });
               }}
               style={{ cursor: "pointer" }}
@@ -53,6 +54,7 @@ export default function Sidebar(){
                   registeration: "nav-link active",
                   mykeys: "nav-link link-dark",
                   digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link link-dark"
                 });
               }}
               style={{ cursor: "pointer" }}
@@ -74,6 +76,7 @@ export default function Sidebar(){
                   registeration: "nav-link link-dark",
                   mykeys: "nav-link active",
                   digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link link-dark"
                 });
               }}
               style={{ cursor: "pointer" }}
@@ -94,6 +97,7 @@ export default function Sidebar(){
                   registeration: "nav-link link-dark",
                   mykeys: "nav-link link-dark",
                   digitalcertificate: "nav-link active",
+                  verify:"nav-link link-dark"
                 });
               }}
               style={{ cursor: "pointer" }}
@@ -102,6 +106,27 @@ export default function Sidebar(){
             >
               <i className="bi bi-award me-2"></i>
               Get My Digital Certificate
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/verifysignature");
+                changeState({
+                  home: "nav-link link-dark",
+                  registeration: "nav-link link-dark",
+                  mykeys: "nav-link link-dark",
+                  digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link active"
+                });
+              }}
+              style={{ cursor: "pointer" }}
+              className={isActive.verify}
+              name="verify"
+            >
+              <i className="bi bi-patch-check me-2"></i>
+              Verify Digital Signature
             </a>
           </li>
           <li>

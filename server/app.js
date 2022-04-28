@@ -26,7 +26,9 @@ const organisationSchema = {
   public_key: String,
   private_key: String,
   details : Object,
+  data:String,
   digital_signature: String,
+  digital_certificate:String
 };
 const Organisation = mongoose.model("Organisation", organisationSchema);
 
@@ -115,17 +117,20 @@ app.post("/postdatatoserver",function (req, res) {
        // Creating digital signature of Organisation by Identrix
        const sign = crypto.createSign("SHA256");
        const data =JSON.stringify(receivedData);
+       console.log(data);
        sign.update(data); // hashing data object to obtain digest
        sign.end();
        const signature = sign.sign(privateKeyObject).toString("base64"); //encrpyt with private key to get Digital signature
        // push organisation credentials to database
 
        const newOrganisation = new Organisation({
-         id: randomId(10),
-         public_key: publicKey,
-         private_key: privateKey,
-         details: receivedData,
-         digital_signature: signature,
+         id:randomId(10),
+         public_key:publicKey,
+         private_key:privateKey,
+         details:receivedData,
+         data:JSON.stringify(receivedData),
+         digital_signature:signature,
+         digital_certificate:"This is your digital certificate"
        });
        newOrganisation.save();
      }
@@ -142,6 +147,47 @@ app.get("/findkeys/:uniqueId", function (req, res) {
     }
   });
 });
+
+
+
+// verify digital signature with id and signature input
+app.post("/verifysignature", function (req, res) {
+  let signature =(req.body.signature).toString("base64");
+  let flag=0;
+  signature= Buffer.from(signature,"base64")  // very very important to buffer our signature
+  let id = req.body.id;
+  let data="";
+  Organisation.findOne({id : id},function (err, foundOrganisation) {
+    if (err) res.send(err);
+    else {
+      if(foundOrganisation)
+      data =foundOrganisation.data.toString();
+      else
+      flag=1;
+      
+    }
+  });
+  // Find IDX public key to verify signature
+ Key.findOne({ id: "wkdm" }, function (err, foundKey) {
+     if (err) res.send(err);
+     else {
+       const idxPublicKey = foundKey.public_key;
+       const publicKeyObject = crypto.createPublicKey(idxPublicKey);
+       // Verify digital signature of Organisation
+       const verify = crypto.createVerify('SHA256');
+       verify.update(data);
+       verify.end();
+       const result =(verify.verify(publicKeyObject, signature));
+       if(flag===0)
+       res.send(result)
+       else
+       res.send("ID not found in the Database")
+     }
+  });
+});
+
+
+
 // sending certificate back to organisation
 app.get("/findcertificate/:uniqueId", function (req, res) {
   Organisation.findOne({id : req.params.uniqueId},function (err, foundOrganisation) {
@@ -151,8 +197,6 @@ app.get("/findcertificate/:uniqueId", function (req, res) {
     }
   });
 });
-
-// Verify digital signature of organisation
 
 
 // generate random userID

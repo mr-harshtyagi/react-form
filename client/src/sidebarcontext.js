@@ -7,6 +7,7 @@ export function SidebarProvider({ children }) {
    registeration: "nav-link link-dark",
    mykeys: "nav-link link-dark",
    digitalcertificate: "nav-link link-dark",
+   verify:"nav-link link-dark"
  });
 
  function changeState(object){

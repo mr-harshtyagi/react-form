@@ -5,7 +5,7 @@ import {Link, useParams } from "react-router-dom";
 
 export default function Showkeys() {
   let params =useParams();
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [isLoaded,setIsLoaded] =useState(false)
   const [message,setMessage] = useState("Loading ...")
  

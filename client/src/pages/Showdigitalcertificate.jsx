@@ -5,7 +5,7 @@ import {Link, useParams } from "react-router-dom";
 
 export default function Showdigitalcertificate() {
   let params =useParams();
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [isLoaded,setIsLoaded] =useState(false)
   const [message,setMessage] = useState("Loading ...")
  
@@ -30,7 +30,7 @@ export default function Showdigitalcertificate() {
       <div className="col-3">
         <Sidebar />
       </div>
-      <div className="col-9 text-center">
+      <div className="col-8 text-center">
         {isLoaded ? (
           <>
             <h1
@@ -45,7 +45,7 @@ export default function Showdigitalcertificate() {
             <div className="row">
               <div className="form-floating col">
                 <textarea
-                  style={{ height: "400px" }}
+                  style={{ height: "350px" }}
                   className="form-control"
                   placeholder="This is your Private Key."
                   id="certificate"
@@ -64,6 +64,7 @@ export default function Showdigitalcertificate() {
           <button className="btn btn-primary"> Enter another ID </button>
         </Link>
       </div>
+      <div className="col-1" ></div>
     </div>
   );
 }
