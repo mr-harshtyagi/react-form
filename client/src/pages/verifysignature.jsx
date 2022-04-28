@@ -1,17 +1,27 @@
 import Sidebar from "../components/sidebar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useContext, useEffect } from "react";
+import SidebarContext from "../sidebarcontext";
 function VerifySignature() {
-  let navigate = useNavigate();
   const [loaded, setLoaded] = useState(false)
   const [verified, setVerified] = useState(false)
   const [message,setMessage] =useState("")
   const [data,setData]= useState({
     id:"",
     signature:""
-  })
+  });
+  const {changeState} =useContext(SidebarContext)
+  useEffect(()=>{
+    changeState({
+                  home: "nav-link link-dark",
+                  registeration: "nav-link link-dark",
+                  mykeys: "nav-link link-dark",
+                  digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link active"
+                });
+
+  },[]);
   function handleChange(event){
     const {name,value} =event.target;
     setData(prevData =>

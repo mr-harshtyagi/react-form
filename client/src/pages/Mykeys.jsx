@@ -1,10 +1,23 @@
 import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import SidebarContext from "../sidebarcontext";
 
 function Mykeys() {
   let navigate=useNavigate();
   const [uniqueId, setUniqueId] =useState();
+   const {changeState} =useContext(SidebarContext)
+  useEffect(()=>{
+    changeState({
+                  home: "nav-link link-dark",
+                  registeration: "nav-link link-dark",
+                  mykeys: "nav-link active",
+                  digitalcertificate: "nav-link link-dark",
+                  verify:"nav-link link-dark"
+                });
+
+  },[])
  
    function handleChange(e) {
      setUniqueId(e.target.value)

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Home from './pages/Home';
 import Registeration from './pages/Registeration';
 import Mykeys from './pages/Mykeys';
-import MyDigitalCertificate from './pages/Digitalcertificate';
+import MyDigitalCertificate from './pages/MyDigitalcertificate';
 import Database from "./pages/Database";
 import Formsubmitted from './pages/Formsubmitted';
 import Errorpage from './pages/Errorpage';
